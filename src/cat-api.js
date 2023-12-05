@@ -5,11 +5,21 @@ axios.defaults.headers.common["x-api-key"] = "live_0h6gWU7nqCgXTyBDNuNjMFGmNzBMJ
 const url = "https://api.thecatapi.com/v1/breeds"
 
 function fetchBreeds() {
-    return axios
-        .get(url)
-        .then(response => response.data)
-        .catch(error => console.log(error))
-        throw error; // Викидаємо помилку для обробки вище
+    return axios.get(url)
+        .then(({ data }) =>
+        { return data; }
+        // console.log(response.data)
+            )
+        .catch(error => {throw new Error(error)}) // Викидаємо помилку для обробки вище
 }
+//Запит про кота на ресур при його виборі
+function fetchCatByBreed(breedId) {
+    return axios.get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
+        .then(({ data }) => {
+            const catData = data[0]
+            return catData;
+        })
+         .catch(error => {console.log(error)})
+ }
 // При необхідності можна додати експорт функції
-export { fetchBreeds };
+export { fetchBreeds, fetchCatByBreed };
