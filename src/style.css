@@ -4,7 +4,7 @@
   height: 120px;
   animation: heartBeat 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
   color: #ffffff;
-  margin: 200 auto auto auto;
+  margin: auto auto auto auto;
 }
 
 .loader:before,
