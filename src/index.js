@@ -15,17 +15,19 @@ const loading = document.querySelector(".loader")
 const ERROR = document.querySelector(".error")
 const informationForCat = document.querySelector(".cat-info")
 
-
-breedSelection.style.display = "none"
-ERROR.style.display = "none"
-
 new SlimSelect({
-    select: '#selectElement'
-});
+  select: '#single'
+})
+
+breedSelection.classList.add("hidden")
+ERROR.classList.add("hidden")
+
+
+
 fetchBreeds()
     .then(resolve => {
-        loading.style.display = "none"
-        breedSelection.style.display = "block"
+        loading.classList.add("hidden")
+        breedSelection.classList.remove("hidden")
         const selectMarkup = resolve.map(
             //додаємо котиків
             item => `<option value="${item.id}">${item.name}</option>`
@@ -33,9 +35,8 @@ fetchBreeds()
 
         return breedSelection.innerHTML = selectMarkup;
     }).catch(error =>{
-        ERROR.style.display = "block"
-        breedSelection.style.display = "none"
-        loading.style.display = "none"
+        ERROR.classList.remove("hidden")
+        breedSelection.classList.add("hidden")
         Notiflix.Notify.warning('Oops! Something went wrong! Try reloading the page!')
         console.log(error)
     })
@@ -43,21 +44,21 @@ breedSelection.addEventListener("change", handleSelection)
      
 function handleSelection(event) {
    
-    loading.style.display = "block"
-    breedSelection.style.display = "none"
-    ERROR.style.display = "none"
+    loading.classList.add("hidden");
+    breedSelection.classList.remove("hidden");
+    ERROR.classList.add("hidden");
      
      const breedId = event.target.value
     fetchCatByBreed(breedId)
         .then(catData => {
-            loading.style.display = "none"
-            breedSelection.style.display = "block"
-            ERROR.style.display = "none"
+            loading.classList.add("hidden");
+            breedSelection.classList.remove("hidden");
+            ERROR.classList.add("hidden");
 
             const { breeds, url } = catData;
             const { description, name, temperament } = breeds[0];
             const catInfo = `
-            <img src = "${url}" alt = "${name}" width ="500" heght ="300">
+            <img class = "fotoCat" src = "${url}" alt = "${name}" width ="400" heght ="300">
             <div>
                 <h1>${name}</h1>
                 <p>${description}</p>
@@ -68,8 +69,8 @@ function handleSelection(event) {
         }).catch(error => {
             console.log(error)
             Notiflix.Notify.warning('Oops! Something went wrong! Try reloading the page!')
-            ERROR.style.display = "block"
-            breedSelection.style.display = "none"
+            ERROR.classList.remove("hidden");
+            breedSelection.classList.add("hidden");
         
         })
 }

@@ -44,3 +44,11 @@
     transform: scale(0.9);
   }
 }
+.hidden {
+  display: none;
+}
+.fotoCat {
+  padding-top: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
