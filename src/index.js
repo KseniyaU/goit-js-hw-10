@@ -2,6 +2,8 @@ import axios from "axios";
 //бібліотека для обробки селекту
 //npm install slim-select
 import SlimSelect from 'slim-select'
+//npm i notiflix
+import Notiflix from 'notiflix';
 import { fetchBreeds, fetchCatByBreed } from "./cat-api";
 axios.defaults.headers.common["x-api-key"] = "live_0h6gWU7nqCgXTyBDNuNjMFGmNzBMJ1pY0FmHBqh87swJtLjlQOpuPp9ZMsqYbble";
 
@@ -34,6 +36,7 @@ fetchBreeds()
         ERROR.style.display = "block"
         breedSelection.style.display = "none"
         loading.style.display = "none"
+        Notiflix.Notify.warning('Oops! Something went wrong! Try reloading the page!')
         console.log(error)
     })
 breedSelection.addEventListener("change", handleSelection)
@@ -64,6 +67,7 @@ function handleSelection(event) {
             return informationForCat.innerHTML = catInfo;
         }).catch(error => {
             console.log(error)
+            Notiflix.Notify.warning('Oops! Something went wrong! Try reloading the page!')
             ERROR.style.display = "block"
             breedSelection.style.display = "none"
         
